@@ -61,8 +61,15 @@ class Enemy (Hero):
             counter += 1
             self.rect.x = random.randint(50, 565)
             self.speed = random.randint(1,4)
-            self.rect.y = -100
-        
+            self.rect.y = -100 
+
+
+        def fire(self):
+            bullet = Bullet(self.rect.centerx, self.rect.y, 10, 10, 10, 'bullet.png')
+            bullets.add(bullet) 
+
+            bullets = sprite.Group()
+
 class Asteroid(Hero):
     def move(self):
         self.rect.y += self.speed
@@ -145,6 +152,8 @@ while game:
         for collide in list_collides:
             if collide:
                 killed += 1
+                if killed == 10:
+                    finish = True
                 enemy1 = Enemy (random.randint(50, 565), -100, 100, 30, random.randint(1,4), "ufo.png")
                 enemys.add(enemy1)
 
@@ -162,9 +171,9 @@ while game:
         rocket.move()
     if finish == True: 
         if killed == 10:
-            window.blit(font_win.render("ТИ ВИГРАВ", True, (0,255,0)), (280,240)) 
+            window.blit(font_win.render("ТИ ВИГРАВ!!!!", True, (0,255,0)), (280,240)) 
         if lifes == 0 or counter == 5:
-            window.blit(font_win.render("ТИ ПРОГРАВ", True, (255,0,0)), (250,240)) 
+            window.blit(font_win.render("ТИ ПРОГРАВ!!!!", True, (255,0,0)), (250,240)) 
         
         window.blit(font_win.render("for restart please press R", True, (255,255,255)), (55,300))
 
